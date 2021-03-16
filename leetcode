@@ -1,0 +1,17 @@
+problem 11
+解法1:暴力解法
+超时
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int len=height.size(),ans=0,les=0;
+        for(int i=0;i<len;i++){
+            for(int j=0;j<len;j++){
+                les=min(height[i],height[j]);
+                int q=abs(i-j);
+                ans=max(les*q,ans);
+            }
+        }
+        return ans;
+    }
+};
