@@ -113,4 +113,73 @@ public:
         return ans;
     }
     };
-    
+Problem 22
+解法1 失败解法
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        int pos=0;
+        vector<string> ansa;
+        string& temans;
+     //   vector<int> stack;
+        if(n==0) return ans;
+        while(temans.length()<n*2){
+            int a=n,b=n;//记录左右括号
+
+        }
+    }
+    bool solve(string ans,int n){
+        int i=0
+        while(i<n*2){
+            if(i>0&&ans[i]==')'&&ans[i-1]=='('){
+                i++;
+            }
+            else if(ans[i]=='('){
+                i++;
+            }
+            else return false;
+        }
+        return true;
+    }
+};
+解法1 动态规划
+class Solution {
+public:
+	vector<string> generateParenthesis(int n) {
+		if (n == 0) return {};
+		if (n == 1) return { "()" };
+		vector<vector<string>> dp(n+1);
+		dp[0] = { "" };
+		dp[1] = { "()" };
+		for (int i = 2; i <= n; i++) {
+			for (int j = 0; j <i; j++) {
+				for (string p : dp[j])
+					for (string q : dp[i - j - 1]) {
+						string str = "(" + p + ")" + q;
+						dp[i].push_back(str);
+					}
+			}
+		}
+		return dp[n];
+	}
+};
+解法2 dfs+回溯思想 最简洁的思路
+class Solution {
+public:
+	vector<string> generateParenthesis(int n) {
+		vector<string> res;
+        int lc=0,rc=0;
+        dfs(res,lc,rc,n,"");
+        return res;
+	}
+    void dfs(vector<string>& res,int lc,int rc,int n,string path){
+        if(rc>lc || rc>n || lc>n)
+        return;
+        if(rc==lc && rc==n){
+            res.push_back(path);
+            return;
+        }
+        dfs(res,lc+1,rc,n,path+'(');
+        dfs(res,lc,rc+1,n,path+')');
+    }
+};
