@@ -253,3 +253,59 @@ public:
         }
     }
 };
+Problem 39
+解法1 又一次失败的回溯 //不长记性
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        int len=candidate.size();
+        vector<int> ansa;
+        
+        
+        
+    }
+    void dfs(target,vector<int>& candidates,int i){
+            if(target==0){
+                ans.push_back(ansa);
+            }
+            target-=candidates[i];
+            if(target<candidates[i]){
+                solve(target,candidates,i+1);
+            }
+            else if(target>candidates[i]){
+                target-=candidates[i];
+                solve(target,candidates,i+1);
+            }
+}
+};
+解法2 回溯
+class Solution {
+private:
+    void dfs(vector<int>& candidates, int begin, int len, int target, vector<int>& path, vector<vector<int>>& res){
+        if(target==0){
+            res.push_back(path);
+            return;
+        }
+        for(int i=begin;i<len;i++){
+            if(target-candidates[i]<0){
+                break;
+            }
+            path.push_back(candidates[i]);
+            dfs(candidates,i,len,target-candidates[i],path,res);
+            path.pop_back();
+        }
+    }
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> res;
+        int len=candidates.size();
+        if(len==0){
+            return res;
+        }
+        sort(candidates.begin(),candidates.end());
+        vector<int> path;
+        dfs(candidates,0,len,target,path,res);
+        return res;
+    }
+};
