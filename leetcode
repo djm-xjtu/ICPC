@@ -163,6 +163,26 @@ public:
 		return dp[n];
 	}
 };
+自己写明白的板子
+class Solution {
+public:
+vector<string> generateParenthesis(int n) {
+    vector<vector<string>> res(n+1);//不写n+1出错
+    res[0].push_back("");
+    for(int i=1;i<=n;i++){
+        for(int j=0;j<i;j++){
+            for(string str1:res[j]){
+                for(string str2:res[i-j-1]){
+                    string str='('+str1+')'+str2;
+                    res[i].push_back(str);//不写i出错
+                }
+            }
+        }
+    }
+    return res[n];//返回res出错
+}
+};
+
 解法2 dfs+回溯思想 最简洁的思路
 class Solution {
 public:
@@ -306,6 +326,55 @@ public:
         sort(candidates.begin(),candidates.end());
         vector<int> path;
         dfs(candidates,0,len,target,path,res);
+        return res;
+    }
+};
+Problem 46
+错误
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        int len=nums.size();
+        vector<vector<int>> res;
+        vector<int> path;
+        if(len==0) return res;
+        solve(nums,res,path,len,0);
+        return res;
+    }
+    void solve(vector<int>& nums,vector<vector<int>>& res,vector<int> path,int len,int begin){
+        if(begin==len){
+            res.push_back(path);
+            return;
+        }
+        for(int i=begin;i<len;i++){
+            if(nums[i]!=0) continue;
+            path.push_back(nums[begin]);
+            solve(nums,res,path,len,begin+1);
+            path.pop_back();
+        }
+    }
+};
+正确
+class Solution {
+public:
+    void backtrack(vector<vector<int>>& res, vector<int>& output, int first, int len){
+        // 所有数都填完了
+        if (first == len) {
+            res.emplace_back(output);
+            return;
+        }
+        for (int i = first; i < len; ++i) {
+            // 动态维护数组
+            swap(output[i], output[first]);
+            // 继续递归填下一个数
+            backtrack(res, output, first + 1, len);
+            // 撤销操作
+            swap(output[i], output[first]);
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int> > res;
+        backtrack(res, nums, 0, (int)nums.size());
         return res;
     }
 };
