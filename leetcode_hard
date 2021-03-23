@@ -1,0 +1,24 @@
+Problem 4
+解答1 好简单的题...
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        double res;
+        int len=nums1.size()+nums2.size();
+        for(int i=0;i<nums2.size();i++){
+            nums1.push_back(nums2[i]);
+        }
+        sort(nums1.begin(),nums1.end());
+        if(len%2!=0){
+            int pos=(len-1)/2;
+            res=nums1[pos];
+        }
+        else if(len%2==0){
+            int path=len/2;
+            int patha=path-1;
+            int ans=nums1[path]+nums1[patha];
+            res=(double)ans/2;
+        }
+        return res;
+    }
+};
