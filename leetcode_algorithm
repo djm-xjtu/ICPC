@@ -1,1 +1,23 @@
+//贪心算法
+problem 455 easy
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+        int res=0,j=g.size()-1;
+        for(int i=s.size()-1;i>=0;i--){
+            while(j>=0){
+            if(s[i]>=g[j]){
+                res++;
+                j--;
+                break;
+            }
+            else j--;
+            }
+        }
+        return res;
+    }
+};
 
+problem 135 hard
