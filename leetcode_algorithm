@@ -106,3 +106,26 @@ public:
         return ans;
     }
 };
+//双指针
+Problem 167
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        vector<int> res;
+        int p1=0,p2=numbers.size()-1;
+        if(numbers.empty()) return res;
+        while(numbers[p1]+numbers[p2]!=target){
+            if(numbers[p1]+numbers[p2]<target){
+                p1++;
+            }
+            else{
+                p2--;
+            }
+        }
+        p1++;
+        p2++;
+        res.push_back(p1);
+        res.push_back(p2);
+        return res;
+    }
+};
