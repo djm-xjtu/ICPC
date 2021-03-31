@@ -378,3 +378,23 @@ public:
         return res;
     }
 };
+problem 1
+解法1 哈希表
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> res;
+        if(nums.empty()) return res;
+        int len=nums.size();
+        unordered_map<int,int> hash;
+        for(int i=0;i<len;i++){
+            auto it=hash.find(target-nums[i]);
+            if(it!=hash.end()){
+                return {it->second,i};
+            }
+            hash[nums[i]]=i;
+        }
+        return {};
+    }
+};
+
